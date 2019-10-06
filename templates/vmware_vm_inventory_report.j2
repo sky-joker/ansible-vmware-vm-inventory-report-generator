@@ -1,0 +1,114 @@
+<html>
+<head>
+    <!-- Load the latest version -->
+    <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
+    <!-- Or load a specific version -->
+    <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
+
+    <!--CLARITY ICONS STYLE-->
+    <link rel="stylesheet" href="https://unpkg.com/clarity-icons/clarity-icons.min.css">
+
+    <!--CLARITY ICONS DEPENDENCY: CUSTOM ELEMENTS POLYFILL-->
+    <script src="https://unpkg.com/@webcomponents/custom-elements/custom-elements.min.js"></script>
+
+    <!--CLARITY ICONS API & ALL ICON SETS-->
+    <script src="https://unpkg.com/clarity-icons/clarity-icons.min.js"></script>
+</head>
+<body>
+    <header class="header header-6">
+       <font color="#FFFFFF"; style="position: absolute; top: 20px; left: 10px;" size="5">VMware VM Inventory Report</font>
+       <clr-icon shape="note" size="45"; style="position: absolute; top: 5px; left: 360px;"></clr-icon>
+    </header>
+    <div class="main-container">
+        <div class="content-container">
+            <div class="content-area">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Status</th>
+                            <th>Managed By</th>
+                            <th>Host</th>
+                            <th>Provisioned Space</th>
+                            <th>Used Space</th>
+                            <th>Host CPU</th>
+                            <th>Host Mem</th>
+                            <th>Guest Mem - %</th>
+                            <th>GuestOS</th>
+                            <!-- <th>Compatibility</th> -->
+                            <th>Memory Size</th>
+                            <th>Reservation</th>
+                            <th>CPUs</th>
+                            <th>NICs</th>
+                            <th>Uptime</th>
+                            <th>IP Address</th>
+                            <th>VMware Tools Version Status</th>
+                            <th>VMware Tools Running Status</th>
+                            <th>DNS Name</th>
+                            <th>EVC Mode</th>
+                            <th>UUID</th>
+                            <th>Notes</th>
+                            <th>Alarm Actions</th>
+                            <th>HA Protection</th>
+                            <th>Needs Consolidation</th>
+                            <!-- <th>VM Storage Policies Compliance</th>
+                            <th>Encryption</th> -->
+                            <th>TPM</th>
+                            <th>VBS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+{% for v in data %}
+                        <tr>
+                            <td>{{ v.hw_name }}</td>
+                            <td>{{ v.hw_power_status}}
+                            <td>{{ v.overallStatus }}</td>
+                            <td>{{ v.config.managedBy }}</td>
+                            <td>{{ v.hw_esxi_host }}</td>
+                            <td>{{ "%.0f" | format( (v.summary.storage.committed + v.summary.storage.uncommitted) / 1073741824) }} GB</td>
+                            <td>{{ "%.0f" | format(v.summary.storage.committed / 1073741824) }} GB</td>
+                            <td>{{ v.summary.quickStats.overallCpuUsage }} MHz</td>
+                            <td>{{ v.summary.quickStats.hostMemoryUsage }} MB</td>
+                            <td>{{ "%.1f" | format( (v.summary.quickStats.guestMemoryUsage / v.hw_memtotal_mb) * 100 ) }}</th>
+                            <td>{{ v.hw_guest_full_name }}</td>
+                            <!-- <td><font color="#FC0107">Compatibility</font></td> -->
+                            <td>{{ v.hw_memtotal_mb / 1024 }} GB</td>
+                            <td>{{ v.config.memoryAllocation.reservation }} MB</td>
+                            <td>{{ v.hw_processor_count }}</td>
+                            <td>{{ v.hw_interfaces | length }}</td>
+                            <td>{{ v.summary.quickStats.uptimeSeconds }}</td>
+                            <td>
+                            {% for net in v.guest.net %}
+                              {% if 'ipAddress' in net %}
+                                {% for ipaddress in net.ipAddress %}
+                                  {{ ipaddress }}</br>
+                                {% endfor %}
+                              {% endif %}
+                            {% endfor %}
+                            <td>{{ v.guest_tools_version }}</td>
+                            <td>{{ v.guest_tools_status }}</td>
+                            <td>{{ v.guest.hostName }}</td>
+                            <td>{{ v.summary.runtime.minRequiredEVCModeKey }}</td>
+                            <td>{{ v.hw_product_uuid }}</td>
+                            <td>{{ v.config.annotation }}
+                            <td>{{ v.alarmActionsEnabled }}</td>
+                            <td>
+                            {% if 'dasVmProtection' in v.summary.runtime and v.summary.runtime.dasVmProtection != None %}
+                                {{ v.summary.runtime.dasVmProtection.dasProtected }}
+                            {% endif %}
+                            </td>
+                            <td>{{ v.summary.runtime.consolidationNeeded }}</td>
+                            <!-- <td><font color="#FC0107">VM Storage Policies Compliance</font></td>
+                            <td><font color="#FC0107">Encryption</font></td> -->
+                            <td>{{ v.summary.config.tpmPresent }}</td>
+                            <td>{{ v.config.flags.vbsEnabled }}</td>
+                        </tr>
+{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

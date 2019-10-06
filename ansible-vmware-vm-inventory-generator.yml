@@ -1,0 +1,79 @@
+---
+- name: VMware VM Inventory Generator
+  hosts: localhost
+  gather_facts: no
+  vars:
+    hostname: vCenter IP
+    username: administrator@vsphere.local
+    password: password
+  tasks:
+    - name: Gather fact for all vm
+      vmware_vm_facts:
+        hostname: "{{ hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+      register: vms
+
+    - name: Gather facts for vm summary
+      vmware_guest_facts:
+        hostname: "{{ hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+        datacenter: DC
+        name: "{{ item.guest_name }}"
+      register: gather_facts_for_vm_summary_result
+      loop: "{{ vms.virtual_machines }}"
+      loop_control:
+        label: "{{ item.guest_name }}"
+
+    - name: Gather facts for vm each properties
+      vmware_guest_facts:
+        hostname: "{{ hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+        datacenter: DC
+        name: "{{ item.guest_name }}"
+        schema: vsphere
+        properties:
+          - alarmActionsEnabled
+          - overallStatus
+          - config.name
+          - config.annotation
+          - config.flags
+          - config.managedBy
+          - guest.hostName
+          - guest.net
+          - summary.storage
+          - summary.quickStats
+          - summary.config
+          - summary.runtime
+          - config.memoryAllocation
+      register: gather_facts_for_vm_each_properties
+      loop: "{{ vms.virtual_machines }}"
+      loop_control:
+        label: "{{ item.guest_name }}"
+
+    - name: Set of combine data
+      set_fact:
+        data: >-
+          {{ data | default([])
+            + [item.instance | combine(combine_data.instance)]
+          }}
+      vars:
+        combine_data: >-
+          {{ gather_facts_for_vm_each_properties.results
+            | selectattr('instance.config.name','equalto',item['instance']['hw_name'])
+            | list
+            | first
+          }}
+      loop: "{{ gather_facts_for_vm_summary_result.results }}"
+      loop_control:
+        label: "{{ item.instance.hw_name }}"
+
+    - name: Generate VM inventory report
+      template:
+        src: templates/vmware_vm_inventory_report.j2
+        dest: vmware_vm_inventory_report.html
