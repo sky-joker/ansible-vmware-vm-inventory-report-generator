@@ -70,7 +70,11 @@
                             <td>{{ "%.0f" | format(v.summary.storage.committed / 1073741824) }} GB</td>
                             <td>{{ v.summary.quickStats.overallCpuUsage }} MHz</td>
                             <td>{{ v.summary.quickStats.hostMemoryUsage }} MB</td>
-                            <td>{{ "%.1f" | format( (v.summary.quickStats.guestMemoryUsage / v.hw_memtotal_mb) * 100 ) }}</th>
+                            <td>
+                            {% if v.summary.quickStats.guestMemoryUsage %}
+                              {{ "%.1f" | format( (v.summary.quickStats.guestMemoryUsage / v.hw_memtotal_mb) * 100 ) }}
+                            {% endif %}
+                            </th>
                             <td>{{ v.hw_guest_full_name }}</td>
                             <!-- <td><font color="#FC0107">Compatibility</font></td> -->
                             <td>{{ v.hw_memtotal_mb / 1024 }} GB</td>
