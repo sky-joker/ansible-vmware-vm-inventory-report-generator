@@ -1,4 +1,4 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![](https://github.com/sky-joker/ansible-vmware-vm-inventory-report-generator/workflows/VM%20Inventory%20Report%20Generator%20Test/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Ansible VMware VM Inventory Report Generator
 

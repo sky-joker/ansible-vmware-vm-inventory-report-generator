@@ -28,4 +28,6 @@ jobs:
           ansible-playbook vcsim-provisioner.yml
 
       - name: generate report
-        run: ansible-playbook ansible-vmware-vm-inventory-generator.yml -e @tests/auth.yml
+        run: |
+          ansible-playbook ansible-vmware-vm-inventory-generator.yml -e @tests/auth.yml
+          ls
