@@ -1,0 +1,141 @@
+<html>
+<head>
+    <!-- Load the latest version -->
+    <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
+    <!-- Or load a specific version -->
+    <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
+
+    <!--CLARITY ICONS STYLE-->
+    <link rel="stylesheet" href="https://unpkg.com/clarity-icons/clarity-icons.min.css">
+
+    <!--CLARITY ICONS DEPENDENCY: CUSTOM ELEMENTS POLYFILL-->
+    <script src="https://unpkg.com/@webcomponents/custom-elements/custom-elements.min.js"></script>
+
+    <!--CLARITY ICONS API & ALL ICON SETS-->
+    <script src="https://unpkg.com/clarity-icons/clarity-icons.min.js"></script>
+</head>
+<body>
+    <header class="header header-6">
+       <font color="#FFFFFF"; style="position: absolute; top: 20px; left: 10px;" size="5">VMware VM Inventory Report</font>
+       <clr-icon shape="note" size="45"; style="position: absolute; top: 5px; left: 360px;"></clr-icon>
+    </header>
+    <div class="main-container">
+        <div class="content-container">
+            <div class="content-area">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Status</th>
+                            <th>Managed By</th>
+                            <th>Host</th>
+                            <th>Provisioned Space</th>
+                            <th>Used Space</th>
+                            <th>Host CPU</th>
+                            <th>Host Mem</th>
+                            <th>Guest Mem - %</th>
+                            <th>GuestOS</th>
+                            <!-- <th>Compatibility</th> -->
+                            <th>Memory Size</th>
+                            <th>Reservation</th>
+                            <th>CPUs</th>
+                            <th>NICs</th>
+                            <th>Uptime</th>
+                            <th>IP Address</th>
+                            <th>VMware Tools Version Status</th>
+                            <th>VMware Tools Running Status</th>
+                            <th>DNS Name</th>
+                            <th>EVC Mode</th>
+                            <th>UUID</th>
+                            <th>Notes</th>
+                            <th>Alarm Actions</th>
+                            <th>HA Protection</th>
+                            <th>Needs Consolidation</th>
+                            <!-- <th>VM Storage Policies Compliance</th>
+                            <th>Encryption</th> -->
+                            <th>TPM</th>
+                            <th>VBS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>molecule01</td>
+                            <td>poweredOn
+                            <td>green</td>
+                            <td></td>
+                            <td>esxi-12.local</td>
+                            <td>33 GB</td>
+                            <td>10 GB</td>
+                            <td>0 MHz</td>
+                            <td>293 MB</td>
+                            <td>3.9</th>
+                            <td>CentOS 6 (64-bit)</td>
+                            <!-- <td><font color="#FC0107">Compatibility</font></td> -->
+                            <td>1.0 GB</td>
+                            <td>0 MB</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1290804</td>
+                            <td>
+                                                                                                                            192.168.0.81</br>
+                                                                  fe80::4c46:57f2:f05b:1458</br>
+                                                                  fe80::79d8:914a:543c:8cdc</br>
+                                                                  fe80::f373:7b8a:6e26:d23e</br>
+                                                                                                                      <td>10309</td>
+                            <td>guestToolsRunning</td>
+                            <td>molecule01</td>
+                            <td></td>
+                            <td>4230cbaa-5c9b-26e0-a4bc-b487c6fc9192</td>
+                            <td>
+                            <td>True</td>
+                            <td>
+                                                        </td>
+                            <td>False</td>
+                            <!-- <td><font color="#FC0107">VM Storage Policies Compliance</font></td>
+                            <td><font color="#FC0107">Encryption</font></td> -->
+                            <td>False</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td>AD01</td>
+                            <td>poweredOn
+                            <td>green</td>
+                            <td></td>
+                            <td>esxi-12.local</td>
+                            <td>104 GB</td>
+                            <td>15 GB</td>
+                            <td>27 MHz</td>
+                            <td>3635 MB</td>
+                            <td>4.0</th>
+                            <td>Microsoft Windows Server 2016 (64-bit)</td>
+                            <!-- <td><font color="#FC0107">Compatibility</font></td> -->
+                            <td>4.0 GB</td>
+                            <td>0 MB</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>1290804</td>
+                            <td>
+                                                                                                                            192.168.0.180</br>
+                                                                                                                      <td>10304</td>
+                            <td>guestToolsRunning</td>
+                            <td>AD01.example.local</td>
+                            <td></td>
+                            <td>4230effa-88e4-e41a-85ce-4ef2f046226d</td>
+                            <td>
+                            <td>True</td>
+                            <td>
+                                                        </td>
+                            <td>False</td>
+                            <!-- <td><font color="#FC0107">VM Storage Policies Compliance</font></td>
+                            <td><font color="#FC0107">Encryption</font></td> -->
+                            <td>False</td>
+                            <td>False</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
