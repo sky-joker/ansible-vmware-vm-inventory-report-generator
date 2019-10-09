@@ -35,6 +35,7 @@ $ vi ansible-vmware-vm-inventory-generator.yml
     hostname: vCenter IP                    # please change to ip or hostname for vCenter Server
     username: administrator@vsphere.local   # please change to vCenter Server login user name
     password: password                      # please change to vCenter Server login password
+    export_type: html                       # please choices['html', 'csv']
   tasks:
     - name: Gather fact for all vm
 (snip)
