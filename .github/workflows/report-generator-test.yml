@@ -27,7 +27,11 @@ jobs:
           ansible-galaxy install sky_joker.ansible_vmware_govcsim_provisioner -p roles
           ansible-playbook vcsim-provisioner.yml
 
-      - name: generate report
+      - name: generate html report
         run: |
-          ansible-playbook ansible-vmware-vm-inventory-generator.yml -e @tests/auth.yml
+          ansible-playbook ansible-vmware-vm-inventory-generator.yml -e @tests/auth.yml -e "{'export_type':'html'}"
+
+      - name: generate csv report
+        run: |
+          ansible-playbook ansible-vmware-vm-inventory-generator.yml -e @tests/auth.yml -e "{'export_type':'csv'}"
           ls

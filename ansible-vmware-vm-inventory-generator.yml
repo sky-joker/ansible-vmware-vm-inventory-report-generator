@@ -6,6 +6,7 @@
     hostname: vCenter IP
     username: administrator@vsphere.local
     password: password
+    type: html # choices['html', 'csv']
   tasks:
     - name: Gather fact for all vm
       vmware_vm_facts:
@@ -73,7 +74,14 @@
       loop_control:
         label: "{{ item.instance.hw_name }}"
 
-    - name: Generate VM inventory report
+    - name: Generate VM inventory report(html)
       template:
         src: templates/vmware_vm_inventory_report.j2
         dest: vmware_vm_inventory_report.html
+      when: export_type == "html"
+
+    - name: Generate VM inventory report(csv)
+      template:
+        src: templates/vmware_vm_inventory_report_csv.j2
+        dest: vmware_vm_inventory_report.csv
+      when: export_type == "csv"
