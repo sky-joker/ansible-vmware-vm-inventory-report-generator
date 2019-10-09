@@ -6,7 +6,7 @@
     hostname: vCenter IP
     username: administrator@vsphere.local
     password: password
-    type: html # choices['html', 'csv']
+    export_type: html # choices['html', 'csv']
   tasks:
     - name: Gather fact for all vm
       vmware_vm_facts:
